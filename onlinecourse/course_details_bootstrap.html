@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.name }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Online Course Exam System</span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Course: {{ course.name }}</h1>
+        <p class="lead">{{ course.description }}</p>
+    </div>
+
+    <form id="exam-form" action="{% url 'onlinecourse:submit' course.id %}" method="post">
+        {% csrf_token %}
+        
+        {% for lesson in course.lesson_set.all %}
+            <div class="card mt-4 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5>Lesson: {{ lesson.title }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ lesson.content }}</p>
+                    
+                    {% for question in lesson.question_set.all %}
+                        <div class="card mt-3 border-secondary">
+                            <div class="card-header bg-light">
+                                <strong>Question: {{ question.question_text }} ({{ question.grade }} pts)</strong>
+                            </div>
+                            <div class="card-body">
+                                {% for choice in question.choice_set.all %}
+                                    <div class="form-check pb-2">
+                                        <input class="form-check-input" type="checkbox" name="choice_{{ question.id }}" id="{{ choice.id }}" value="{{ choice.id }}">
+                                        <label class="form-check-label" for="{{ choice.id }}">
+                                            {{ choice.choice_text }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-success mt-4 btn-block btn-lg shadow">Submit Exam</button>
+    </form>
+</div>
+</body>
+</html>
