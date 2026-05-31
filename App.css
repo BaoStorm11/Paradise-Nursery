@@ -1,0 +1,31 @@
+/* Style cho Landing Page Background */
+.landing-page {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('https://images.unsplash.com/photo-1545241047-6083a3684587?q=80&w=1920'); /* Bạn có thể thay đổi link ảnh tùy thích */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.get-started-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.get-started-btn:hover {
+  background-color: #45a049;
+}
